@@ -1,0 +1,48 @@
+package com.example.coursework2;
+
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
+
+@RestController
+@RequestMapping(path="/exam")
+public class JavaQuestionController {
+
+    public final QuestionService QuestionService;
+
+    public JavaQuestionController(QuestionService questionService) {
+        this.QuestionService = questionService;
+    }
+
+    @GetMapping
+    public String helloExaminee(){
+        return """
+                Hi, examinee!
+                You'll have an exam today!
+                Good luck!
+                If you want to get questions, you can go to path "/exam/get/{amount}"
+                "amount" means a number of questions.
+                The path "/exam/java/(add/remove/find)" lets you adding, removing or searching questions""";
+    }
+
+    /*@GetMapping(path = "/get/{amount}")
+    public Map getQuestions(@PathVariable int amount){
+    }*/
+
+    @GetMapping(path = "/java")
+    public Map<String, List<Question>> getAllQuestions() {
+        return QuestionService.getQuestions();
+    }
+
+    @GetMapping(path = "/java/add")
+    public Question addQuestion(@RequestParam String question, @RequestParam String answer) {
+        return QuestionService.addQuestion(question, answer);
+    }
+
+    @GetMapping(path = "/java/remove")
+    public Question removeQuestion(@RequestParam String question, @RequestParam String answer) {
+        return QuestionService.removeQuestion(question, answer);
+    }
+
+}
