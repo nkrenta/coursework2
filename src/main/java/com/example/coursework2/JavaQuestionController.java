@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping(path="/exam")
+@RequestMapping(path = "/exam")
 public class JavaQuestionController {
 
     public final QuestionService QuestionService;
@@ -16,7 +16,7 @@ public class JavaQuestionController {
     }
 
     @GetMapping
-    public String helloExaminee(){
+    public String helloExaminee() {
         return """
                 Hi, examinee!
                 You'll have an exam today!
@@ -26,12 +26,8 @@ public class JavaQuestionController {
                 The path "/exam/java/(add/remove/find)" lets you adding, removing or searching questions""";
     }
 
-    /*@GetMapping(path = "/get/{amount}")
-    public Map getQuestions(@PathVariable int amount){
-    }*/
-
     @GetMapping(path = "/java")
-    public Map<String, List<Question>> getAllQuestions() {
+    public Map<Integer, List<Question>> getAllQuestions() {
         return QuestionService.getQuestions();
     }
 
@@ -40,9 +36,10 @@ public class JavaQuestionController {
         return QuestionService.addQuestion(question, answer);
     }
 
-    @GetMapping(path = "/java/remove")
-    public Question removeQuestion(@RequestParam String question, @RequestParam String answer) {
-        return QuestionService.removeQuestion(question, answer);
+    @GetMapping(path = "/java/remove/{key}")
+    public Map<Integer, List<Question>> removeQuestion(@PathVariable(required = false) Integer key) {
+        QuestionService.getQuestions();
+        return QuestionService.removeQuestion(key);
     }
 
 }
