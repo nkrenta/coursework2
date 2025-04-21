@@ -1,5 +1,7 @@
-package com.example.coursework2;
+package com.example.coursework2.Controllers;
 
+import com.example.coursework2.Question;
+import com.example.coursework2.Services.QuestionService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,7 +30,7 @@ public class JavaQuestionController {
 
     @GetMapping(path = "/java")
     public Map<Integer, List<Question>> getAllQuestions() {
-        return QuestionService.getQuestions();
+        return QuestionService.getAllQuestions();
     }
 
     @GetMapping(path = "/java/add")
@@ -38,7 +40,7 @@ public class JavaQuestionController {
 
     @GetMapping(path = "/java/remove/{key}")
     public Map<Integer, List<Question>> removeQuestion(@PathVariable(required = false) Integer key) {
-        QuestionService.getQuestions();
+        QuestionService.getAllQuestions();
         return QuestionService.removeQuestion(key);
     }
 

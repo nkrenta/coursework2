@@ -1,4 +1,6 @@
-package com.example.coursework2;
+package com.example.coursework2.Services;
+
+import com.example.coursework2.Question;
 
 import java.util.List;
 import java.util.Map;
@@ -9,5 +11,5 @@ public interface QuestionService {
 
     Map<Integer, List<Question>> removeQuestion(Integer key);
 
-    Map<Integer, List<Question>> getQuestions();
+    Map<Integer, List<Question>> getAllQuestions();
 }
