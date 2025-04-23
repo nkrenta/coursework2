@@ -1,6 +1,6 @@
 package com.example.coursework2;
 
-import com.example.coursework2.Exceptions.BAD_REQUEST;
+import com.example.coursework2.Exceptions.BadRequest;
 import com.example.coursework2.Exceptions.EmptyListOfQuestions;
 import com.example.coursework2.Services.ExaminerServiceImpl;
 import com.example.coursework2.Services.JavaQuestionService;
@@ -63,7 +63,7 @@ class ExaminerServiceImplTest {
         when(javaQuestionService.getAllQuestions()).thenReturn(questionsMap);
 
         // Assert
-        assertThrows(BAD_REQUEST.class, () -> examinerService.getQuestions(2));
+        assertThrows(BadRequest.class, () -> examinerService.getQuestions(2));
     }
 
     @Test
@@ -77,9 +77,28 @@ class ExaminerServiceImplTest {
         when(javaQuestionService.getAllQuestions()).thenReturn(questionsMap);
 
         // Act
-        Map<Integer, Question> questions = examinerService.getQuestions(1);
+        Map<Integer, String> questions = examinerService.getQuestions(1);
 
         // Assert
         assertEquals(1, questions.size());
+    }
+
+    @Test
+    void testGetQuestionsReturnsUniqueQuestions() {
+        // Arrange
+        Question question1 = new Question("What is Java?", "A programming language.");
+        Question question2 = new Question("What is OOP?", "Object-Oriented Programming.");
+        Map<Integer, List<Question>> questionsMap = new HashMap<>();
+        questionsMap.put(1, Collections.singletonList(question1));
+        questionsMap.put(2, Collections.singletonList(question2));
+        when(javaQuestionService.getAllQuestions()).thenReturn(questionsMap);
+
+        // Act
+        Map<Integer, String> questions = examinerService.getQuestions(2);
+
+        // Assert
+        assertEquals(2, questions.size());
+        assertTrue(questions.containsValue(question1.getQuestion()));
+        assertTrue(questions.containsValue(question2.getQuestion()));
     }
 }

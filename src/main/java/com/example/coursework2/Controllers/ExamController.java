@@ -1,6 +1,5 @@
 package com.example.coursework2.Controllers;
 
-import com.example.coursework2.Question;
 import com.example.coursework2.Services.ExaminerService;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,14 +11,22 @@ import java.util.Map;
 @RequestMapping(path = "/exam")
 public class ExamController {
 
-    public final ExaminerService ExaminerService;
+    private final ExaminerService ExaminerService;
 
-    public ExamController(ExaminerService ExaminerService) {
-        this.ExaminerService = ExaminerService;
+    public ExamController(ExaminerService examinerService) {
+        this.ExaminerService = examinerService;
+    }
+
+    @RequestMapping(path = "/hello")
+    public String hello() {
+        return """
+                Hello, examiner!
+                You can get questions by path '/exam/get/{amount}'
+                """;
     }
 
     @RequestMapping(path = "get/{amount}")
-    public Map<Integer, Question> getQuestions(@PathVariable(required = false) Integer amount) {
-        return ExaminerService.getQuestions(amount);
+    public Map<Integer, String> getQuestions(@PathVariable(required = false) String amount) {
+        return ExaminerService.getQuestions(Integer.valueOf(amount));
     }
 }

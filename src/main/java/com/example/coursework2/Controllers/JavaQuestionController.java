@@ -11,7 +11,7 @@ import java.util.Map;
 @RequestMapping(path = "/exam")
 public class JavaQuestionController {
 
-    public final QuestionService QuestionService;
+    private final QuestionService QuestionService;
 
     public JavaQuestionController(QuestionService questionService) {
         this.QuestionService = questionService;
