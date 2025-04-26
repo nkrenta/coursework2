@@ -11,10 +11,10 @@ import java.util.Map;
 @RequestMapping(path = "/exam")
 public class ExamController {
 
-    private final ExaminerService ExaminerService;
+    private final ExaminerService examinerService;
 
     public ExamController(ExaminerService examinerService) {
-        this.ExaminerService = examinerService;
+        this.examinerService = examinerService;
     }
 
     @RequestMapping(path = "/hello")
@@ -27,6 +27,6 @@ public class ExamController {
 
     @RequestMapping(path = "get/{amount}")
     public Map<Integer, String> getQuestions(@PathVariable(required = false) String amount) {
-        return ExaminerService.getQuestions(Integer.valueOf(amount));
+        return examinerService.getQuestions(Integer.valueOf(amount));
     }
 }

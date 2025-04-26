@@ -11,15 +11,15 @@ import java.util.*;
 @Service
 public class ExaminerServiceImpl implements ExaminerService {
 
-    private final JavaQuestionService JavaQuestionService;
+    private final JavaQuestionService javaQuestionService;
     private final Set<Integer> usedRandomIndexes = new HashSet<>();
 
     public ExaminerServiceImpl(JavaQuestionService javaQuestionService) {
-        this.JavaQuestionService = javaQuestionService;
+        this.javaQuestionService = javaQuestionService;
     }
 
     public int getRandomQuestion() {
-        Map<Integer, List<Question>> allQuestions = JavaQuestionService.getAllQuestions();
+        Map<Integer, List<Question>> allQuestions = javaQuestionService.getAllQuestions();
         if (allQuestions.isEmpty()) {
             throw new EmptyListOfQuestions("List of questions is empty");
         }
@@ -38,7 +38,7 @@ public class ExaminerServiceImpl implements ExaminerService {
     }
 
     public Map<Integer, String> getQuestions(Integer amount) {
-        Map<Integer, List<Question>> allQuestions = JavaQuestionService.getAllQuestions();
+        Map<Integer, List<Question>> allQuestions = javaQuestionService.getAllQuestions();
 
         List<String> questionsWithoutAnswers = allQuestions.values().stream()
                 .flatMap(List::stream)

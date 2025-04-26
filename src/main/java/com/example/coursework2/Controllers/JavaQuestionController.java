@@ -11,10 +11,10 @@ import java.util.Map;
 @RequestMapping(path = "/exam")
 public class JavaQuestionController {
 
-    private final QuestionService QuestionService;
+    private final QuestionService questionService;
 
     public JavaQuestionController(QuestionService questionService) {
-        this.QuestionService = questionService;
+        this.questionService = questionService;
     }
 
     @GetMapping
@@ -30,18 +30,18 @@ public class JavaQuestionController {
 
     @GetMapping(path = "/java")
     public Map<Integer, List<Question>> getAllQuestions() {
-        return QuestionService.getAllQuestions();
+        return questionService.getAllQuestions();
     }
 
     @GetMapping(path = "/java/add")
     public Question addQuestion(@RequestParam String question, @RequestParam String answer) {
-        return QuestionService.addQuestion(question, answer);
+        return questionService.addQuestion(question, answer);
     }
 
     @GetMapping(path = "/java/remove/{key}")
     public Map<Integer, List<Question>> removeQuestion(@PathVariable(required = false) Integer key) {
-        QuestionService.getAllQuestions();
-        return QuestionService.removeQuestion(key);
+        questionService.getAllQuestions();
+        return questionService.removeQuestion(key);
     }
 
 }
